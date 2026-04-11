@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Calculator | Prakhar FIT</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">PRAKHAR FIT</a>
+            <div class="nav-links">
+                <a href="index.html#journey">My Story</a>
+                <a href="programs.html">Programs</a>
+                <a href="transformations.html">Results</a>
+                <a href="certifications.html">Certifications</a>
+                <a href="calculator.html" class="text-accent">Calculator</a>
+                <a href="contact.html">Contact</a>
+                <a href="index.html#consultation" class="btn btn-accent">Start the Execution</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section dark-section" style="min-height: 80vh; display: flex; align-items: center; margin-top: 70px;">
+        <div class="container">
+            <div class="contact-grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+                
+                <div class="contact-info text-center mb-4">
+                    <h1 class="section-title mb-2">Evidence-Based Macro Calculator</h1>
+                    <p class="text-muted text-lg">Powered by the Mifflin-St Jeor equation. Get precise baseline targets for your calories and macronutrients before we build your custom protocol.</p>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form id="macro-form" class="custom-form">
+                        
+                        <div class="two-col-grid">
+                            <div class="form-group">
+                                <label for="calc-gender">Biological Sex</label>
+                                <select id="calc-gender" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-age">Age (Years)</label>
+                                <input type="number" id="calc-age" required min="15" max="100" placeholder="e.g. 30">
+                            </div>
+                        </div>
+
+                        <div class="two-col-grid">
+                            <div class="form-group">
+                                <label for="calc-weight">Weight (kg)</label>
+                                <input type="number" id="calc-weight" required min="30" max="300" step="0.1" placeholder="e.g. 75">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-height">Height (cm)</label>
+                                <input type="number" id="calc-height" required min="100" max="250" placeholder="e.g. 175">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-activity">Activity Level</label>
+                            <select id="calc-activity" required>
+                                <option value="1.2">Sedentary (Office job, little to no exercise)</option>
+                                <option value="1.375">Lightly Active (Light exercise 1-3 days/week)</option>
+                                <option value="1.55">Moderately Active (Moderate exercise 3-5 days/week)</option>
+                                <option value="1.725">Very Active (Heavy exercise 6-7 days/week)</option>
+                                <option value="1.9">Extra Active (Physical job + heavy training)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-10">
+                            <label for="calc-goal">Primary Goal</label>
+                            <select id="calc-goal" required>
+                                <option value="cut">Fat Loss (20% Caloric Deficit)</option>
+                                <option value="maintain">Maintenance (Maintain Current Weight)</option>
+                                <option value="bulk">Muscle Gain (10% Caloric Surplus)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-large" style="width: 100%;">Calculate My Macros</button>
+                    </form>
+
+                    <div id="results-container">
+                        <div class="calories-box">
+                            <p class="macro-label mb-2">Your Daily Target</p>
+                            <div class="calories-number" id="result-cals">0</div>
+                            <p class="text-muted mt-2">Calories / Day</p>
+                        </div>
+
+                        <div class="macro-grid">
+                            <div class="macro-box">
+                                <div class="macro-number" id="result-protein">0g</div>
+                                <div class="macro-label text-accent">Protein</div>
+                            </div>
+                            <div class="macro-box">
+                                <div class="macro-number" id="result-fat">0g</div>
+                                <div class="macro-label text-accent">Fats</div>
+                            </div>
+                            <div class="macro-box">
+                                <div class="macro-number" id="result-carbs">0g</div>
+                                <div class="macro-label text-accent">Carbs</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-10">
+                            <div class="disclaimer-box">
+                                <p class="text-muted" style="font-size: 0.85rem;">
+                                    <strong class="text-main">Disclaimer:</strong> These results are generalized estimates based on standard clinical research formulas. Actual metabolic rates and caloric needs vary significantly based on genetics, body composition, and health history. For a strategy that fits your busy schedule without adding stress, please consult with me for a personalized assessment.
+                                </p>
+                            </div>
+
+                            <p class="text-muted text-sm mb-4">Numbers are only half the battle. Strategy is the rest.</p>
+                            <a href="index.html#consultation" class="btn btn-outline" style="border-color: var(--accent); color: var(--text-main);">Discuss Your Protocol</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <h3 class="logo mb-4">PRAKHAR FIT</h3>
+            <p class="text-muted mb-4">vaskale123@gmail.com | +91 7999428347</p>
+            <p class="text-sm text-dark-muted">&copy; 2026 Prakhar Vaskale. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('macro-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const gender = document.getElementById('calc-gender').value;
+            const age = parseInt(document.getElementById('calc-age').value);
+            const weight = parseFloat(document.getElementById('calc-weight').value);
+            const height = parseFloat(document.getElementById('calc-height').value);
+            const activity = parseFloat(document.getElementById('calc-activity').value);
+            const goal = document.getElementById('calc-goal').value;
+
+            let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+            bmr += (gender === 'male') ? 5 : -161;
+
+            let tdee = bmr * activity;
+            let targetCalories = tdee;
+            let proteinRatio, fatRatio, carbRatio;
+
+            if (goal === 'cut') {
+                targetCalories *= 0.80; 
+                proteinRatio = 0.40; 
+                fatRatio = 0.30;     
+                carbRatio = 0.30;    
+            } else if (goal === 'bulk') {
+                targetCalories *= 1.10; 
+                proteinRatio = 0.30; 
+                fatRatio = 0.25;     
+                carbRatio = 0.45;    
+            } else { 
+                proteinRatio = 0.30; 
+                fatRatio = 0.30;     
+                carbRatio = 0.40;    
+            }
+
+            const proteinGrams = (targetCalories * proteinRatio) / 4;
+            const fatGrams = (targetCalories * fatRatio) / 9;
+            const carbGrams = (targetCalories * carbRatio) / 4;
+
+            document.getElementById('result-cals').innerText = Math.round(targetCalories).toLocaleString();
+            document.getElementById('result-protein').innerText = Math.round(proteinGrams) + 'g';
+            document.getElementById('result-fat').innerText = Math.round(fatGrams) + 'g';
+            document.getElementById('result-carbs').innerText = Math.round(carbGrams) + 'g';
+
+            const resultsDiv = document.getElementById('results-container');
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
