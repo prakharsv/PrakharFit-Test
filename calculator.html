@@ -10,6 +10,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .report-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: #ffffff;
+        }
+        .btn-whatsapp:hover {
+            background-color: #1ebe5d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+        }
+        .btn-pdf {
+            background-color: var(--bg-card);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        .btn-pdf:hover {
+            background-color: rgba(204, 255, 0, 0.07);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(204, 255, 0, 0.1);
+        }
+        .report-actions-label {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin: 2rem 0;
+        }
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -39,7 +91,24 @@
 
                 <div class="contact-form-wrapper">
                     <form id="macro-form" class="custom-form">
-                        
+
+                        <!-- Personal Info -->
+                        <span class="section-label">Your Details</span>
+                        <div class="two-col-grid">
+                            <div class="form-group">
+                                <label for="calc-name">Full Name</label>
+                                <input type="text" id="calc-name" required placeholder="e.g. Rahul Sharma">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-phone">Phone Number</label>
+                                <input type="tel" id="calc-phone" required placeholder="e.g. +91 9876543210">
+                            </div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <!-- Body Metrics -->
+                        <span class="section-label">Body Metrics</span>
                         <div class="two-col-grid">
                             <div class="form-group">
                                 <label for="calc-gender">Biological Sex</label>
@@ -69,9 +138,9 @@
                             <label for="calc-activity">Activity Level</label>
                             <select id="calc-activity" required>
                                 <option value="1.2">Sedentary (Office job, little to no exercise)</option>
-                                <option value="1.375">Lightly Active (Light exercise 1-3 days/week)</option>
-                                <option value="1.55">Moderately Active (Moderate exercise 3-5 days/week)</option>
-                                <option value="1.725">Very Active (Heavy exercise 6-7 days/week)</option>
+                                <option value="1.375">Lightly Active (Light exercise 1–3 days/week)</option>
+                                <option value="1.55">Moderately Active (Moderate exercise 3–5 days/week)</option>
+                                <option value="1.725">Very Active (Heavy exercise 6–7 days/week)</option>
                                 <option value="1.9">Extra Active (Physical job + heavy training)</option>
                             </select>
                         </div>
@@ -88,6 +157,7 @@
                         <button type="submit" class="btn btn-accent btn-large" style="width: 100%;">Calculate My Macros</button>
                     </form>
 
+                    <!-- Results -->
                     <div id="results-container">
                         <div class="calories-box">
                             <p class="macro-label mb-2">Your Daily Target</p>
@@ -117,7 +187,18 @@
                                 </p>
                             </div>
 
-                            <p class="text-muted text-sm mb-4">Numbers are only half the battle. Strategy is the rest.</p>
+                            <!-- Report Actions -->
+                            <p class="report-actions-label">Save or Share Your Report</p>
+                            <div class="report-actions">
+                                <button onclick="downloadPDF()" class="btn btn-pdf btn-large">
+                                    <i class="fa-solid fa-file-arrow-down" style="margin-right: 0.6rem;"></i>Download PDF Report
+                                </button>
+                                <button onclick="shareOnWhatsApp()" class="btn btn-whatsapp btn-large">
+                                    <i class="fa-brands fa-whatsapp" style="margin-right: 0.6rem;"></i>Send to Prakhar
+                                </button>
+                            </div>
+
+                            <p class="text-muted text-sm mb-4" style="margin-top: 2rem;">Numbers are only half the battle. Strategy is the rest.</p>
                             <a href="contact.html" class="btn btn-outline" style="border-color: var(--accent); color: var(--text-main);">Discuss Your Protocol</a>
                         </div>
                     </div>
@@ -135,16 +216,25 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById('macro-form').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-            const gender = document.getElementById('calc-gender').value;
-            const age = parseInt(document.getElementById('calc-age').value);
-            const weight = parseFloat(document.getElementById('calc-weight').value);
-            const height = parseFloat(document.getElementById('calc-height').value);
+    <script>
+        /* ─── State ─────────────────────────────────────────── */
+        let reportData = {};
+
+        /* ─── Calculator ─────────────────────────────────────── */
+        document.getElementById('macro-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name     = document.getElementById('calc-name').value.trim();
+            const phone    = document.getElementById('calc-phone').value.trim();
+            const gender   = document.getElementById('calc-gender').value;
+            const age      = parseInt(document.getElementById('calc-age').value);
+            const weight   = parseFloat(document.getElementById('calc-weight').value);
+            const height   = parseFloat(document.getElementById('calc-height').value);
             const activity = parseFloat(document.getElementById('calc-activity').value);
-            const goal = document.getElementById('calc-goal').value;
+            const goal     = document.getElementById('calc-goal').value;
 
             let bmr = (10 * weight) + (6.25 * height) - (5 * age);
             bmr += (gender === 'male') ? 5 : -161;
@@ -154,34 +244,311 @@
             let proteinRatio, fatRatio, carbRatio;
 
             if (goal === 'cut') {
-                targetCalories *= 0.80; 
-                proteinRatio = 0.40; 
-                fatRatio = 0.30;     
-                carbRatio = 0.30;    
+                targetCalories *= 0.80;
+                proteinRatio = 0.40; fatRatio = 0.30; carbRatio = 0.30;
             } else if (goal === 'bulk') {
-                targetCalories *= 1.10; 
-                proteinRatio = 0.30; 
-                fatRatio = 0.25;     
-                carbRatio = 0.45;    
-            } else { 
-                proteinRatio = 0.30; 
-                fatRatio = 0.30;     
-                carbRatio = 0.40;    
+                targetCalories *= 1.10;
+                proteinRatio = 0.30; fatRatio = 0.25; carbRatio = 0.45;
+            } else {
+                proteinRatio = 0.30; fatRatio = 0.30; carbRatio = 0.40;
             }
 
             const proteinGrams = (targetCalories * proteinRatio) / 4;
-            const fatGrams = (targetCalories * fatRatio) / 9;
-            const carbGrams = (targetCalories * carbRatio) / 4;
+            const fatGrams     = (targetCalories * fatRatio)     / 9;
+            const carbGrams    = (targetCalories * carbRatio)    / 4;
 
-            document.getElementById('result-cals').innerText = Math.round(targetCalories).toLocaleString();
-            document.getElementById('result-protein').innerText = Math.round(proteinGrams) + 'g';
-            document.getElementById('result-fat').innerText = Math.round(fatGrams) + 'g';
-            document.getElementById('result-carbs').innerText = Math.round(carbGrams) + 'g';
+            const activityLabels = {
+                '1.2':   'Sedentary',
+                '1.375': 'Lightly Active',
+                '1.55':  'Moderately Active',
+                '1.725': 'Very Active',
+                '1.9':   'Extra Active'
+            };
+            const goalLabels = {
+                cut:      'Fat Loss (20% Deficit)',
+                maintain: 'Maintenance',
+                bulk:     'Muscle Gain (10% Surplus)'
+            };
+
+            reportData = {
+                name, phone, gender, age, weight, height,
+                activityLabel: activityLabels[String(activity)],
+                goalLabel:     goalLabels[goal],
+                calories:  Math.round(targetCalories),
+                protein:   Math.round(proteinGrams),
+                fat:       Math.round(fatGrams),
+                carbs:     Math.round(carbGrams),
+                date:      new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+            };
+
+            document.getElementById('result-cals').innerText   = reportData.calories.toLocaleString();
+            document.getElementById('result-protein').innerText = reportData.protein + 'g';
+            document.getElementById('result-fat').innerText     = reportData.fat     + 'g';
+            document.getElementById('result-carbs').innerText   = reportData.carbs   + 'g';
 
             const resultsDiv = document.getElementById('results-container');
             resultsDiv.style.display = 'block';
             resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
+
+        /* ─── PDF Generation ─────────────────────────────────── */
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+            const W = 210, H = 297;
+            const d = reportData;
+
+            // ── Palette ──
+            const C = {
+                dark:    [10,  10,  10],
+                card:    [20,  20,  20],
+                card2:   [28,  28,  28],
+                accent:  [204, 255, 0],
+                white:   [255, 255, 255],
+                muted:   [140, 140, 140],
+                muted2:  [100, 100, 100],
+                border:  [40,  40,  40],
+            };
+
+            // ── Full dark background ──
+            doc.setFillColor(...C.dark);
+            doc.rect(0, 0, W, H, 'F');
+
+            // ── Header band ──
+            doc.setFillColor(...C.accent);
+            doc.rect(0, 0, W, 48, 'F');
+
+            // Left accent stripe
+            doc.setFillColor(180, 230, 0);
+            doc.rect(0, 0, 6, 48, 'F');
+
+            // Logo
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(26);
+            doc.setTextColor(...C.dark);
+            doc.text('PRAKHAR FIT', 16, 20);
+
+            // Subtitle under logo
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(30, 30, 30);
+            doc.text('ACE Certified Personal Trainer  |  Sports Nutrition Specialist', 16, 28);
+
+            // Right – report label
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(40, 40, 40);
+            doc.text('MACRO NUTRITION REPORT', W - 14, 18, { align: 'right' });
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.text(d.date, W - 14, 26, { align: 'right' });
+
+            // ── "Prepared for" card ──
+            const cardY = 56;
+            roundedRect(doc, 14, cardY, W - 28, 28, 3, C.card2);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...C.muted);
+            doc.text('PREPARED FOR', 22, cardY + 9);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.setTextColor(...C.white);
+            doc.text(d.name.toUpperCase(), 22, cardY + 19);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(...C.muted);
+            doc.text(d.phone, W - 22, cardY + 19, { align: 'right' });
+
+            // ── Goal badge ──
+            const badgeW = doc.getTextWidth(d.goalLabel) + 10;
+            doc.setFillColor(...C.accent);
+            doc.roundedRect(W - 14 - badgeW, cardY + 8, badgeW, 7, 1.5, 1.5, 'F');
+            doc.setFontSize(7);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(...C.dark);
+            doc.text(d.goalLabel.toUpperCase(), W - 14 - badgeW / 2, cardY + 13.2, { align: 'center' });
+
+            // ── Section: Daily Calorie Target ──
+            const calY = 96;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...C.muted);
+            doc.text('DAILY CALORIE TARGET', W / 2, calY, { align: 'center' });
+
+            doc.setFontSize(52);
+            doc.setTextColor(...C.accent);
+            doc.setFont('helvetica', 'bold');
+            doc.text(d.calories.toLocaleString(), W / 2, calY + 20, { align: 'center' });
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...C.muted);
+            doc.text('CALORIES / DAY', W / 2, calY + 27, { align: 'center' });
+
+            // Divider
+            doc.setDrawColor(...C.border);
+            doc.setLineWidth(0.4);
+            doc.line(14, calY + 33, W - 14, calY + 33);
+
+            // ── Macros Row ──
+            const macroY = calY + 42;
+            const macros = [
+                { label: 'PROTEIN', value: d.protein + 'g', sub: '@ 4 kcal/g', col: C.accent },
+                { label: 'FATS',    value: d.fat     + 'g', sub: '@ 9 kcal/g', col: [100, 200, 255] },
+                { label: 'CARBS',   value: d.carbs   + 'g', sub: '@ 4 kcal/g', col: [255, 180, 80] },
+            ];
+            const boxW = (W - 14 * 2 - 8) / 3;
+
+            macros.forEach((m, i) => {
+                const bx = 14 + i * (boxW + 4);
+                roundedRect(doc, bx, macroY, boxW, 38, 3, C.card);
+
+                // Top accent bar
+                doc.setFillColor(...m.col);
+                doc.roundedRect(bx, macroY, boxW, 3.5, 1.5, 1.5, 'F');
+
+                // Macro label
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(7.5);
+                doc.setTextColor(...C.muted);
+                doc.text(m.label, bx + boxW / 2, macroY + 11, { align: 'center' });
+
+                // Value
+                doc.setFontSize(24);
+                doc.setTextColor(...m.col);
+                doc.text(m.value, bx + boxW / 2, macroY + 26, { align: 'center' });
+
+                // Sub label
+                doc.setFontSize(7);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(...C.muted2);
+                doc.text(m.sub, bx + boxW / 2, macroY + 34, { align: 'center' });
+            });
+
+            // ── Input Summary ──
+            const sumY = macroY + 48;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...C.muted);
+            doc.text('YOUR PROFILE', 14, sumY);
+
+            const inputs = [
+                ['Age',      d.age + ' years'],
+                ['Weight',   d.weight + ' kg'],
+                ['Height',   d.height + ' cm'],
+                ['Sex',      d.gender.charAt(0).toUpperCase() + d.gender.slice(1)],
+                ['Activity', d.activityLabel],
+                ['Goal',     d.goalLabel],
+            ];
+
+            const colA = 14, colB = W / 2 + 7;
+            inputs.forEach((row, i) => {
+                const col = i < 3 ? colA : colB;
+                const rowIdx = i < 3 ? i : i - 3;
+                const ry = sumY + 8 + rowIdx * 9;
+                roundedRect(doc, col, ry, (W / 2) - 21, 8, 2, C.card2);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(7.5);
+                doc.setTextColor(...C.muted);
+                doc.text(row[0].toUpperCase(), col + 5, ry + 5.4);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(...C.white);
+                doc.text(row[1], col + (W / 2 - 21) - 5, ry + 5.4, { align: 'right' });
+            });
+
+            // ── Methodology note ──
+            const methY = sumY + 44;
+            roundedRect(doc, 14, methY, W - 28, 20, 3, C.card2);
+
+            // Left accent line
+            doc.setFillColor(...C.accent);
+            doc.roundedRect(14, methY, 3, 20, 1.5, 1.5, 'F');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...C.accent);
+            doc.text('METHODOLOGY', 22, methY + 7);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7.5);
+            doc.setTextColor(...C.muted);
+            const methText = 'Calculated using the Mifflin-St Jeor BMR equation, adjusted for activity level (TDEE) and goal-based caloric modification. Macros distributed based on evidence-based sports nutrition protocols for the selected objective.';
+            const methLines = doc.splitTextToSize(methText, W - 38);
+            doc.text(methLines, 22, methY + 14);
+
+            // ── Disclaimer ──
+            const disY = methY + 28;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(160, 80, 80);
+            doc.text('DISCLAIMER', 14, disY);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(6.8);
+            doc.setTextColor(...C.muted2);
+            const disText = 'These are generalized estimates based on validated clinical formulas. Individual metabolic rates vary. This report does not constitute medical advice. Consult Prakhar for a fully personalized protocol.';
+            const disLines = doc.splitTextToSize(disText, W - 28);
+            doc.text(disLines, 14, disY + 6);
+
+            // ── Footer ──
+            roundedRect(doc, 0, H - 22, W, 22, 0, C.card2);
+            doc.setFillColor(...C.accent);
+            doc.rect(0, H - 22, 6, 22, 'F');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...C.accent);
+            doc.text('PRAKHAR FIT', 14, H - 12);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7.5);
+            doc.setTextColor(...C.muted);
+            doc.text('vaskale123@gmail.com  |  +91 7999428347  |  prakharfit.com', 14, H - 6);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...C.white);
+            doc.text('Ready to build a real protocol?', W - 14, H - 12, { align: 'right' });
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(7.5);
+            doc.setTextColor(...C.muted);
+            doc.text('Book a free 30-min call at prakharfit.com', W - 14, H - 6, { align: 'right' });
+
+            doc.save(`PrakharFIT_MacroReport_${d.name.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        /* ─── Rounded rect helper (jsPDF doesn't expose natively in all versions) ─── */
+        function roundedRect(doc, x, y, w, h, r, fillColor) {
+            doc.setFillColor(...fillColor);
+            doc.roundedRect(x, y, w, h, r, r, 'F');
+        }
+
+        /* ─── WhatsApp Share ─────────────────────────────────── */
+        function shareOnWhatsApp() {
+            const d = reportData;
+            const msg =
+`Hi Prakhar! 👋
+
+I just used your Macro Calculator on your website. Here are my results:
+
+*Name:* ${d.name}
+*Phone:* ${d.phone}
+*Goal:* ${d.goalLabel}
+
+*Daily Calorie Target:* ${d.calories.toLocaleString()} kcal
+  • Protein: ${d.protein}g
+  • Fats: ${d.fat}g
+  • Carbs: ${d.carbs}g
+
+*My Stats:* ${d.age} yrs | ${d.weight} kg | ${d.height} cm | ${d.activityLabel}
+
+I'd love to discuss a personalised protocol. Can we connect?`;
+
+            const url = `https://wa.me/917999428347?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
     </script>
 </body>
 </html>
