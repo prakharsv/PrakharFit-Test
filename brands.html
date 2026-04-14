@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborate | Prakhar Vaskale Fitness</title>
+    <meta http-equiv="refresh" content="0;url=collaborations.html">
+    <link rel="canonical" href="collaborations.html">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p style="padding: 2rem; color: var(--text-main);">Redirecting to <a href="collaborations.html" style="color: var(--accent);">collaborations page</a>...</p>
+    <script>window.location.replace('collaborations.html');</script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Custom Magnetic Cursor Logic (Desktop Only)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            var cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
+            });
+
+            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
+                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
+                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
