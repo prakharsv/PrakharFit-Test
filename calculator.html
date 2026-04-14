@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator | Prakhar Vaskale Fitness</title>
+    <meta name="description" content="Free BMI calculator with detailed insights, health category, ideal weight range, and downloadable PDF report. From ACE Certified Trainer Prakhar Vaskale.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">PRAKHAR VASKALE FITNESS</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="story.html">My Story</a>
+                <a href="programs.html">Programs</a>
+                <a href="transformations.html">Results</a>
+                <a href="resources.html">Resources</a>
+                <a href="faq.html">FAQ</a>
+                <a href="collaborations.html">Collaborate</a>
+                <a href="contact.html" class="btn btn-accent">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container reveal">
+            <p class="eyebrow">Free tool</p>
+            <h1 class="section-title">BMI Calculator</h1>
+            <p class="section-subtitle max-w-2xl mx-auto mt-4">Enter your measurements below. Get your BMI, health category, ideal weight range, and a downloadable PDF report. Free, no email required.</p>
+        </div>
+    </header>
+
+    <main class="section dark-section">
+        <div class="container">
+            <div class="calc-wrapper reveal">
+
+                <div style="margin-bottom:1.5rem;">
+                    <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:0.6rem;">Units</p>
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" id="btn-metric" onclick="setUnit('metric')">Metric (kg / cm)</button>
+                        <button class="unit-btn" id="btn-imperial" onclick="setUnit('imperial')">Imperial (lbs / ft&amp;in)</button>
+                    </div>
+                </div>
+
+                <div class="custom-form">
+                    <div id="metric-inputs">
+                        <div class="inline-pair">
+                            <div class="form-group">
+                                <label for="height-cm">Height (cm)</label>
+                                <input type="number" id="height-cm" placeholder="e.g. 175" min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label for="weight-kg">Weight (kg)</label>
+                                <input type="number" id="weight-kg" placeholder="e.g. 80" min="30" max="300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="imperial-inputs" style="display:none;">
+                        <div class="form-group">
+                            <label>Height</label>
+                            <div class="inline-pair">
+                                <input type="number" id="height-ft" placeholder="Feet" min="3" max="8">
+                                <input type="number" id="height-in" placeholder="Inches" min="0" max="11">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight-lbs">Weight (lbs)</label>
+                            <input type="number" id="weight-lbs" placeholder="e.g. 176" min="66" max="660">
+                        </div>
+                    </div>
+
+                    <div class="inline-pair">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" placeholder="e.g. 30" min="15" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Biological sex</label>
+                            <select id="sex">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="calculate()" class="btn btn-accent btn-large w-full" style="margin-top:0.5rem;">
+                        <i class="fa-solid fa-calculator"></i> Calculate BMI
+                    </button>
+                    <p id="calc-error" style="display:none;color:#ff6b6b;font-size:0.85rem;text-align:center;margin-top:0.75rem;">Please fill in all fields with valid values.</p>
+                </div>
+
+                <div class="calc-result-panel" id="result-panel">
+
+                    <div style="display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+                        <div>
+                            <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--text-muted);margin-bottom:0.2rem;">Your BMI</p>
+                            <div class="bmi-number" id="bmi-display">--</div>
+                        </div>
+                        <div>
+                            <div class="bmi-category" id="bmi-category">--</div>
+                            <div id="bmi-badge" style="display:inline-block;padding:0.3rem 0.85rem;border-radius:20px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bmi-scale">
+                        <div class="bmi-marker" id="bmi-marker" style="left:0%"></div>
+                    </div>
+                    <div class="bmi-scale-labels">
+                        <span>16</span><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span><span>40</span>
+                    </div>
+
+                    <div class="result-grid">
+                        <div class="result-box">
+                            <div class="result-number" id="res-bmi">--</div>
+                            <div class="result-label">BMI</div>
+                        </div>
+                        <div class="result-box">
+                            <div class="result-number" id="res-ideal">--</div>
+                            <div class="result-label" id="res-ideal-label">Ideal weight (kg)</div>
+                        </div>
+                        <div class="result-box">
+                            <div class="result-number" id="res-bodyfat">--</div>
+                            <div class="result-label">Est. body fat %</div>
+                        </div>
+                    </div>
+
+                    <div id="calc-interp"></div>
+
+                    <div id="calc-recs-wrap" style="margin-top:1.5rem;padding:1.5rem;background:var(--bg-main);border-radius:var(--radius);border:1px solid var(--border);">
+                        <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:0.75rem;">What this means for you</p>
+                        <ul id="calc-recs" style="list-style:none;"></ul>
+                    </div>
+
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:1.25rem;line-height:1.65;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:6px;padding:1rem;">
+                        <strong style="color:var(--text-main);">Note:</strong> BMI is a population-level screening tool, not a clinical diagnosis. It does not account for muscle mass, bone density, or body fat distribution. Use it as a starting reference, not a final verdict. For a full assessment tailored to your body, <a href="contact.html" style="color:var(--accent);">fill out the contact form</a>.
+                    </p>
+
+                    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
+                        <button onclick="downloadPDF()" class="btn btn-accent" style="flex:1;">
+                            <i class="fa-solid fa-download"></i> Download PDF Report
+                        </button>
+                        <a href="contact.html" class="btn btn-outline" style="flex:1;text-align:center;">Get a Custom Plan</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal" style="max-width:700px;margin:3rem auto 0;text-align:center;">
+                <p class="eyebrow">Beyond the number</p>
+                <h2 class="section-title mb-6">BMI Is One Signal. Not the Full Picture.</h2>
+                <p class="text-muted" style="font-size:1rem;line-height:1.8;margin-bottom:2rem;">A person with high muscle mass may show as "overweight" on BMI while being in excellent health. A person in the "normal" range may carry excess visceral fat. BMI gives you a starting reference. What you do with that information is what matters. A properly designed training and nutrition program, built around your actual body composition, is the next step.</p>
+                <a href="programs.html" class="btn btn-outline">View Coaching Programs</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container reveal">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo footer-logo">PRAKHAR VASKALE FITNESS</div>
+                    <p class="footer-tagline">ACE Certified Personal Trainer and Sports Nutrition Specialist. Evidence-based online coaching across India.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="story.html">My Story</a>
+                    <a href="programs.html">Programs</a>
+                    <a href="transformations.html">Results</a>
+                    <a href="resources.html">Resources</a>
+                </div>
+                <div class="footer-col">
+                    <h4>More</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="certifications.html">Certifications</a>
+                    <a href="collaborations.html">Collaborate</a>
+                    <a href="calculator.html">BMI Calculator</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="mailto:prakharvaskalefit@gmail.com">prakharvaskalefit@gmail.com</a>
+                    <a href="https://wa.me/918963953181" target="_blank" rel="noopener">+91 89639 53181 (WhatsApp)</a>
+                    <a href="contact.html">Get in Touch</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Prakhar Vaskale. All rights reserved.</span>
+                <span>Indore, Madhya Pradesh, India</span>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+    var currentUnit = 'metric';
+    var lastResult = {};
+
+    function setUnit(u) {
+        currentUnit = u;
+        document.getElementById('metric-inputs').style.display = u === 'metric' ? 'block' : 'none';
+        document.getElementById('imperial-inputs').style.display = u === 'imperial' ? 'block' : 'none';
+        document.getElementById('btn-metric').classList.toggle('active', u === 'metric');
+        document.getElementById('btn-imperial').classList.toggle('active', u === 'imperial');
+    }
+
+    function getHeightCm() {
+        if (currentUnit === 'metric') {
+            return parseFloat(document.getElementById('height-cm').value);
+        } else {
+            var ft = parseFloat(document.getElementById('height-ft').value) || 0;
+            var inc = parseFloat(document.getElementById('height-in').value) || 0;
+            return (ft * 12 + inc) * 2.54;
+        }
+    }
+    function getWeightKg() {
+        if (currentUnit === 'metric') {
+            return parseFloat(document.getElementById('weight-kg').value);
+        } else {
+            return parseFloat(document.getElementById('weight-lbs').value) * 0.453592;
+        }
+    }
+
+    function calculate() {
+        var h = getHeightCm();
+        var w = getWeightKg();
+        var age = parseInt(document.getElementById('age').value);
+        var sex = document.getElementById('sex').value;
+        var err = document.getElementById('calc-error');
+
+        if (!h || !w || !age || h < 100 || h > 250 || w < 30 || w > 300 || age < 15 || age > 100) {
+            err.style.display = 'block';
+            return;
+        }
+        err.style.display = 'none';
+
+        var hm = h / 100;
+        var bmi = w / (hm * hm);
+
+        // Category
+        var cat, badge, badgeColor, interp, recs;
+        if (bmi < 18.5) {
+            cat = 'Underweight'; badge = 'Below healthy range'; badgeColor = '#3b82f6';
+            interp = 'Your BMI falls below the healthy range. This may indicate insufficient calorie intake, low muscle mass, or an underlying issue. Building lean muscle and improving calorie intake with adequate protein is typically the priority.';
+            recs = ['Increase daily calorie intake with a slight surplus (200-300 kcal above TDEE)', 'Prioritise resistance training to build lean muscle mass', 'Aim for 1.6-2.2g protein per kg of bodyweight daily', 'Avoid excessive cardio which can impede weight gain', 'Consider a full body composition assessment to understand your baseline'];
+        } else if (bmi < 25) {
+            cat = 'Normal Weight'; badge = 'Healthy range'; badgeColor = '#22c55e';
+            interp = 'Your BMI is within the healthy range. This is a positive starting point. Depending on your goal, the focus may be on improving body composition (muscle-to-fat ratio), building strength, or maintaining your current weight while improving fitness markers.';
+            recs = ['Maintain calorie intake at roughly your TDEE', 'Focus on progressive resistance training for body recomposition', 'Prioritise protein intake to preserve and build muscle', 'Aim for 3-5 structured training sessions per week', 'Track energy levels, strength gains, and measurements alongside weight'];
+        } else if (bmi < 30) {
+            cat = 'Overweight'; badge = 'Above healthy range'; badgeColor = '#f59e0b';
+            interp = 'Your BMI is above the healthy range. The priority here is a structured, moderate calorie deficit supported by high protein intake and resistance training. This preserves muscle while driving fat loss, and produces results that hold over time.';
+            recs = ['Create a moderate calorie deficit (300-500 kcal below TDEE)', 'Maintain high protein intake (1.6-2.2g per kg) to protect muscle', 'Resistance training 3-4 days per week alongside light cardio', 'Track body measurements and strength, not just scale weight', 'Avoid extreme or crash diets which result in muscle loss and rebound'];
+        } else if (bmi < 35) {
+            cat = 'Obese (Class I)'; badge = 'Elevated health risk'; badgeColor = '#ef4444';
+            interp = 'Your BMI falls in the Class I Obesity range. This carries elevated risk for conditions including type 2 diabetes, hypertension, and cardiovascular issues. A structured fat loss program with medical clearance is strongly recommended. Sustainable loss of 0.5-1kg per week is the safe and effective target.';
+            recs = ['Consult a doctor before starting any new exercise program', 'Aim for a 500-750 kcal daily deficit to achieve 0.5-1 kg/week loss', 'Start with lower-impact exercise (walking, cycling, swimming) and build up', 'High protein intake is critical to preserve muscle during fat loss', 'Track markers beyond weight: blood pressure, blood sugar, energy levels'];
+        } else {
+            cat = 'Obese (Class II+)'; badge = 'High health risk'; badgeColor = '#7f1d1d';
+            interp = 'Your BMI indicates Class II or higher obesity. Medical supervision alongside a structured program is strongly advised. The good news: even a 5-10% reduction in body weight produces measurable improvements in health markers. This is a starting point, not a verdict.';
+            recs = ['Seek medical clearance and guidance before starting', 'Begin with low-impact daily movement: walking targets of 6,000-8,000 steps', 'Work with a certified professional for personalised programming', 'Nutrition changes should precede intense exercise initially', 'Set process goals (daily habits) rather than only outcome goals (weight)'];
+        }
+
+        // Ideal weight (Devine formula)
+        var idealMin, idealMax;
+        if (sex === 'male') {
+            var idealBase = 50 + 2.3 * ((h - 152.4) / 2.54);
+            idealMin = Math.max(idealBase - 3, 40);
+            idealMax = idealBase + 3;
+        } else {
+            var idealBase = 45.5 + 2.3 * ((h - 152.4) / 2.54);
+            idealMin = Math.max(idealBase - 3, 35);
+            idealMax = idealBase + 3;
+        }
+
+        // Estimated body fat (Deurenberg formula)
+        var bfPct = (1.2 * bmi) + (0.23 * age) - (10.8 * (sex === 'male' ? 1 : 0)) - 5.4;
+        bfPct = Math.max(bfPct, 5);
+
+        // Scale position (BMI 16 = 0%, 40 = 100%)
+        var scalePos = Math.min(Math.max(((bmi - 16) / 24) * 100, 2), 98);
+
+        // Render
+        document.getElementById('bmi-display').textContent = bmi.toFixed(1);
+        document.getElementById('bmi-category').textContent = cat;
+        var bdg = document.getElementById('bmi-badge');
+        bdg.textContent = badge;
+        bdg.style.background = badgeColor + '20';
+        bdg.style.color = badgeColor;
+        bdg.style.border = '1px solid ' + badgeColor + '50';
+        document.getElementById('bmi-marker').style.left = scalePos + '%';
+        document.getElementById('res-bmi').textContent = bmi.toFixed(1);
+        var idealLbl = document.getElementById('res-ideal-label');
+        if (currentUnit === 'imperial') {
+            document.getElementById('res-ideal').textContent = (idealMin * 2.20462).toFixed(0) + '-' + (idealMax * 2.20462).toFixed(0);
+            if (idealLbl) idealLbl.textContent = 'Ideal weight (lbs)';
+        } else {
+            document.getElementById('res-ideal').textContent = idealMin.toFixed(0) + '-' + idealMax.toFixed(0);
+            if (idealLbl) idealLbl.textContent = 'Ideal weight (kg)';
+        }
+        document.getElementById('res-bodyfat').textContent = bfPct.toFixed(1) + '%';
+        document.getElementById('calc-interp').textContent = interp;
+        var recsList = document.getElementById('calc-recs');
+        recsList.innerHTML = '';
+        recs.forEach(function(r) {
+            var li = document.createElement('li');
+            li.textContent = r;
+            recsList.appendChild(li);
+        });
+
+        document.getElementById('result-panel').style.display = 'block';
+        document.getElementById('result-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        lastResult = { bmi: bmi, cat: cat, badge: badge, interp: interp, recs: recs, idealMin: idealMin, idealMax: idealMax, bfPct: bfPct, h: h, w: w, age: age, sex: sex };
+    }
+
+    function downloadPDF() {
+        if (!lastResult.bmi) { alert('Please calculate your BMI first.'); return; }
+        var d = lastResult;
+        
+        // Ensure jsPDF is loaded
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            alert('PDF library is still loading. Please try again in a few seconds.');
+            return;
+        }
+        
+        var { jsPDF } = window.jspdf;
+        var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        var W = 210, pad = 18;
+
+        // Dark header bar
+        doc.setFillColor(8, 8, 8);
+        doc.rect(0, 0, W, 38, 'F');
+
+        // Lime accent strip
+        doc.setFillColor(204, 255, 0);
+        doc.rect(0, 38, W, 3, 'F');
+
+        // Logo
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.setTextColor(238, 238, 238);
+        doc.text('PRAKHAR VASKALE FITNESS', pad, 17);
+
+        // Subtitle
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7.5);
+        doc.setTextColor(160, 160, 160);
+        doc.text('ACE Certified Personal Trainer & Sports Nutrition Specialist', pad, 24);
+        doc.text('prakharvaskalefit@gmail.com | +91 89639 53181', pad, 30);
+        doc.text('Indore, Madhya Pradesh, India', pad, 36);
+
+        var y = 55;
+
+        // Report title
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(20);
+        doc.setTextColor(20, 20, 20);
+        doc.text('BMI ASSESSMENT REPORT', pad, y); y += 8;
+
+        // Date
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(120, 120, 120);
+        var now = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+        doc.text('Generated: ' + now, pad, y); y += 4;
+
+        // Divider
+        doc.setDrawColor(220, 220, 220);
+        doc.line(pad, y, W - pad, y); y += 8;
+
+        // BMI value block
+        doc.setFillColor(248, 248, 246);
+        doc.roundedRect(pad, y, W - pad * 2, 28, 3, 3, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(36);
+        doc.setTextColor(90, 100, 0);
+        doc.text(d.bmi.toFixed(1), pad + 6, y + 20);
+        doc.setFontSize(14);
+        doc.setTextColor(20, 20, 20);
+        doc.text(d.cat, pad + 40, y + 13);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(100, 100, 100);
+        doc.text(d.badge, pad + 40, y + 21);
+        y += 36;
+
+        // Metrics row
+        var cols = [
+            { label: 'BMI', val: d.bmi.toFixed(1) },
+            { label: 'Ideal Weight Range', val: d.idealMin.toFixed(0) + ' - ' + d.idealMax.toFixed(0) + ' kg' },
+            { label: 'Est. Body Fat', val: d.bfPct.toFixed(1) + '%' }
+        ];
+        var colW = (W - pad * 2 - 8) / 3;
+        cols.forEach(function(c, i) {
+            var cx = pad + i * (colW + 4);
+            doc.setFillColor(238, 238, 238);
+            doc.roundedRect(cx, y, colW, 20, 2, 2, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(20, 20, 20);
+            doc.text(c.val, cx + colW / 2, y + 12, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(6.5);
+            doc.setTextColor(120, 120, 120);
+            doc.text(c.label.toUpperCase(), cx + colW / 2, y + 18, { align: 'center' });
+        });
+        y += 28;
+
+        // What it means
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(20, 20, 20);
+        doc.text('WHAT THIS MEANS', pad, y); y += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(70, 70, 70);
+        var interpLines = doc.splitTextToSize(d.interp, W - pad * 2);
+        doc.text(interpLines, pad, y); y += interpLines.length * 4.5 + 5;
+
+        // Recommendations
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(20, 20, 20);
+        doc.text('RECOMMENDATIONS', pad, y); y += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        d.recs.forEach(function(r) {
+            doc.setTextColor(90, 100, 0);
+            doc.text('>', pad, y);
+            doc.setTextColor(60, 60, 60);
+            var rLines = doc.splitTextToSize(r, W - pad * 2 - 8);
+            doc.text(rLines, pad + 6, y);
+            y += rLines.length * 4.5 + 2;
+        });
+        y += 3;
+
+        // Disclaimer
+        doc.setFillColor(248, 248, 246);
+        doc.roundedRect(pad, y, W - pad * 2, 20, 2, 2, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(100, 100, 100);
+        doc.text('DISCLAIMER:', pad + 4, y + 5);
+        doc.setFont('helvetica', 'normal');
+        var dis = 'BMI is a population-level screening tool and does not account for muscle mass, bone density, or individual body composition. This report is for informational purposes only and does not constitute medical advice.';
+        var disLines = doc.splitTextToSize(dis, W - pad * 2 - 8);
+        doc.text(disLines, pad + 4, y + 10);
+        y += 26;
+
+        // CTA footer bar
+        if (y < 248) {
+            doc.setFillColor(8, 8, 8);
+            doc.rect(0, 270, W, 27, 'F');
+            doc.setFillColor(204, 255, 0);
+            doc.rect(0, 270, W, 2, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(238, 238, 238);
+            doc.text('Want a program built around your body and goals?', pad, 280);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(160, 160, 160);
+            doc.text('Fill out the contact form at prakharvaskalefitness.com or email prakharvaskalefit@gmail.com', pad, 287);
+            doc.text('© 2026 Prakhar Vaskale. Free resource - not for resale.', pad, 293);
+        }
+
+        doc.save('BMI-Report-Prakhar-Vaskale-Fitness.pdf');
+    }
+
+    /* Nav Master Script + Animations */
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Intersection Observer for Smooth Agency-Style Reveals
+        var observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        var observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // 2. Custom Magnetic Cursor Logic (Desktop Only)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            var cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
+            });
+
+            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
+                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
+                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
+            });
+        }
+
+        // 3. Navigation Scroll Behavior
+        var nav = document.querySelector('.navbar');
+        var lastY = 0, ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > lastY && y > 90) { nav.classList.add('nav-up'); }
+                    else { nav.classList.remove('nav-up'); }
+                    nav.classList.toggle('nav-scrolled', y > 12);
+                    lastY = y; ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // 4. Mobile Hamburger Toggle
+        var t = document.getElementById('navToggle');
+        var l = document.getElementById('navLinks');
+        
+        if (t && l) {
+            t.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = l.classList.contains('open');
+                if (isOpen) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                } else {
+                    l.classList.add('open');
+                    t.classList.add('open');
+                    t.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            l.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (l.classList.contains('open') && !t.contains(e.target) && !l.contains(e.target)) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
