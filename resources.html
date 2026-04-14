@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Resources | Prakhar Vaskale Fitness</title>
+    <meta name="description" content="Free fitness and nutrition resources from ACE Certified trainer Prakhar Vaskale. Download workout plans, macro trackers, an Indian grocery list, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .resource-card {
+            background: var(--bg-card, #111);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.3s ease,
+                        box-shadow 0.4s ease;
+        }
+        .resource-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(204,255,0,0.3);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.5);
+        }
+        .rc-top   { padding: 2rem 2rem 0; }
+        .rc-body  { padding: 0 2rem 1.5rem; flex-grow: 1; }
+        .rc-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 2rem; }
+        .rc-meta  { display: flex; gap: 0.9rem; flex-wrap: wrap; padding: 1rem 2rem; font-size: 0.72rem; color: #6e6e6e; }
+        .rc-meta span { display: flex; align-items: center; gap: 0.35rem; }
+        .rc-meta i { color: #ccff00; font-size: 0.68rem; }
+        .rc-includes { padding: 0 2rem 1.25rem; }
+        .rc-includes h4 {
+            font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.18em; color: #6e6e6e; margin-bottom: 0.65rem;
+        }
+        .rc-includes ul { list-style: none; padding: 0; }
+        .rc-includes li {
+            font-size: 0.83rem; color: #c0c0c0;
+            padding: 0.28rem 0; display: flex; gap: 0.6rem; line-height: 1.45;
+        }
+        .rc-includes li::before { content: '\2192'; color: #ccff00; flex-shrink: 0; }
+        .resource-tag {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            background: rgba(204,255,0,0.1); color: #ccff00;
+            font-size: 0.63rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.18em; padding: 0.25rem 0.75rem;
+            border-radius: 20px; margin-bottom: 1rem;
+        }
+        .resource-icon { font-size: 2rem; color: #ccff00; margin-bottom: 0.85rem; display: block; }
+        .resource-card h3 {
+            font-family: 'Manrope', sans-serif; font-size: 1.05rem; font-weight: 700;
+            line-height: 1.35; margin-bottom: 0.65rem; color: #eee;
+        }
+        .resource-card p { font-size: 0.87rem; color: #6e6e6e; line-height: 1.65; margin-bottom: 0; }
+        .btn-dl {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            margin: 1.25rem 2rem 2rem; padding: 0.9rem 1.25rem;
+            background: #ccff00; color: #080808; font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;
+            border-radius: 6px; text-decoration: none;
+            transition: background 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-dl:hover { background: #b8e600; transform: translateY(-4px); }
+        .note-box {
+            background: rgba(204,255,0,0.07); border: 1px solid rgba(204,255,0,0.2);
+            border-radius: 7px; padding: 1.25rem 1.75rem;
+            max-width: 680px; margin: 0 auto 4rem; text-align: center;
+        }
+        .note-box p { font-size: 0.88rem; color: #6e6e6e; margin: 0; line-height: 1.7; }
+        .note-box a { color: #ccff00; }
+        @media (max-width: 640px) { .resource-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">PRAKHAR VASKALE FITNESS</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="story.html">My Story</a>
+                <a href="programs.html">Programs</a>
+                <a href="transformations.html">Results</a>
+                <a href="resources.html" class="active">Resources</a>
+                <a href="faq.html">FAQ</a>
+                <a href="collaborations.html">Collaborate</a>
+                <a href="contact.html" class="btn btn-accent">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container reveal">
+            <p class="eyebrow">Free downloads</p>
+            <h1 class="section-title">Free Resources.</h1>
+            <p class="section-subtitle max-w-2xl mx-auto mt-4">Practical tools you can use today. No email required, no sign-up, no strings. Click the button and request it on WhatsApp. Each one reflects the same standards I apply to paid coaching.</p>
+        </div>
+    </header>
+
+    <main class="section dark-section" style="padding-top:3rem;">
+        <div class="container">
+
+            <div class="note-box reveal">
+                <i class="fa-solid fa-circle-info" style="color:#ccff00;font-size:1rem;margin-bottom:.6rem;display:block;"></i>
+                <p>These are starting points built for general use. For a plan designed specifically around your body, your diet, and your goals, <a href="contact.html">fill out the contact form</a>.</p>
+            </div>
+
+            <div class="resource-grid">
+
+                <div class="resource-card reveal">
+                    <div class="rc-top">
+                        <span class="resource-tag"><i class="fa-solid fa-dumbbell"></i> Workout Plan</span>
+                        <i class="fa-solid fa-dumbbell resource-icon"></i>
+                        <h3>Beginner 3-Day Full Body Workout Plan</h3>
+                    </div>
+                    <div class="rc-body">
+                        <p>A complete gym-based program for beginners training 3 days per week. Every session covers all major muscle groups with sets, reps, rest periods, and a coaching cue for every movement.</p>
+                    </div>
+                    <div class="rc-divider"></div>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-file-pdf"></i> PDF, 5 pages</span>
+                        <span><i class="fa-solid fa-calendar-week"></i> 8 to 12 weeks</span>
+                        <span><i class="fa-solid fa-person"></i> Beginner</span>
+                    </div>
+                    <div class="rc-includes">
+                        <h4>What is inside</h4>
+                        <ul>
+                            <li>Day A, B, and C exercise tables with sets, reps, rest, and form cues</li>
+                            <li>Weekly schedule template and how to rotate sessions</li>
+                            <li>Progressive overload guide: when and how to increase weight</li>
+                            <li>Common form mistakes and the specific fix for each one</li>
+                            <li>Cardio guidelines and nutrition basics for this training phase</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/918963953181?text=Hi%20Prakhar%21%20I%20found%20your%20website%20and%20would%20like%20to%20get%20the%20Beginner%203-Day%20Full%20Body%20Workout%20Plan.%20Could%20you%20please%20send%20it%20to%20me%3F%20Thank%20you%21" target="_blank" rel="noopener" class="btn-dl">
+                        <i class="fa-brands fa-whatsapp"></i> Get on WhatsApp
+                    </a>
+                </div>
+
+                <div class="resource-card reveal delay-1">
+                    <div class="rc-top">
+                        <span class="resource-tag"><i class="fa-solid fa-clipboard-list"></i> Nutrition Tool</span>
+                        <i class="fa-solid fa-clipboard-list resource-icon"></i>
+                        <h3>Daily Macro and Nutrition Tracking Checklist</h3>
+                    </div>
+                    <div class="rc-body">
+                        <p>A printable weekly tracking system covering calories, protein, carbs, fats, water intake, and daily habits. Includes a meal-by-meal breakdown log, target-setting guide, and daily checklist.</p>
+                    </div>
+                    <div class="rc-divider"></div>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-file-pdf"></i> PDF, 4 pages</span>
+                        <span><i class="fa-solid fa-calendar-week"></i> Weekly use</span>
+                        <span><i class="fa-solid fa-person"></i> All levels</span>
+                    </div>
+                    <div class="rc-includes">
+                        <h4>What is inside</h4>
+                        <ul>
+                            <li>How to calculate your daily calorie and macro targets step by step</li>
+                            <li>7-day nutrition log with columns for all four macros and water</li>
+                            <li>Meal-by-meal breakdown sheet to fill in each day</li>
+                            <li>Protein reference table for common Indian foods</li>
+                            <li>Daily non-negotiable checklist and 5 tracking tips that actually work</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/918963953181?text=Hi%20Prakhar%21%20I%20found%20your%20website%20and%20would%20like%20to%20get%20the%20Daily%20Macro%20and%20Nutrition%20Tracking%20Checklist.%20Could%20you%20please%20send%20it%20to%20me%3F%20Thank%20you%21" target="_blank" rel="noopener" class="btn-dl">
+                        <i class="fa-brands fa-whatsapp"></i> Get on WhatsApp
+                    </a>
+                </div>
+
+                <div class="resource-card reveal delay-2">
+                    <div class="rc-top">
+                        <span class="resource-tag"><i class="fa-solid fa-house"></i> Workout Plan</span>
+                        <i class="fa-solid fa-house resource-icon"></i>
+                        <h3>Home Workout Plan: No Equipment Needed</h3>
+                    </div>
+                    <div class="rc-body">
+                        <p>A structured 4-week bodyweight training plan you can do anywhere at home. Covers upper body, lower body, and conditioning, with a week-by-week progression guide so you keep improving every session.</p>
+                    </div>
+                    <div class="rc-divider"></div>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-file-pdf"></i> PDF, 4 pages</span>
+                        <span><i class="fa-solid fa-calendar-week"></i> 4 weeks</span>
+                        <span><i class="fa-solid fa-person"></i> Beginner</span>
+                    </div>
+                    <div class="rc-includes">
+                        <h4>What is inside</h4>
+                        <ul>
+                            <li>Day A (upper body and core) and Day B (lower body and conditioning) full session tables</li>
+                            <li>4-week progression guide with specific targets for each week</li>
+                            <li>Sample weekly schedule showing where to place rest days</li>
+                            <li>Easier and harder variations for every exercise</li>
+                            <li>What to do after 4 weeks and how to transition to a gym program</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/918963953181?text=Hi%20Prakhar%21%20I%20found%20your%20website%20and%20would%20like%20to%20get%20the%20Home%20Workout%20Plan%20%28No%20Equipment%20Needed%29.%20Could%20you%20please%20send%20it%20to%20me%3F%20Thank%20you%21" target="_blank" rel="noopener" class="btn-dl">
+                        <i class="fa-brands fa-whatsapp"></i> Get on WhatsApp
+                    </a>
+                </div>
+
+                <div class="resource-card reveal">
+                    <div class="rc-top">
+                        <span class="resource-tag"><i class="fa-solid fa-bowl-food"></i> Nutrition Guide</span>
+                        <i class="fa-solid fa-bowl-food resource-icon"></i>
+                        <h3>Indian High-Protein Grocery List</h3>
+                    </div>
+                    <div class="rc-body">
+                        <p>A comprehensive grocery reference built for Indian households. Covers vegetarian, vegan, and non-vegetarian options with protein values and practical cooking notes. Built for real Indian kitchens, not generic Western nutrition advice.</p>
+                    </div>
+                    <div class="rc-divider"></div>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-file-pdf"></i> PDF, 4 pages</span>
+                        <span><i class="fa-solid fa-calendar-week"></i> Ongoing reference</span>
+                        <span><i class="fa-solid fa-person"></i> All levels</span>
+                    </div>
+                    <div class="rc-includes">
+                        <h4>What is inside</h4>
+                        <ul>
+                            <li>Primary protein sources: non-veg, vegetarian, and vegan with values per 100g</li>
+                            <li>Complete legumes and dals reference with cooking notes for each</li>
+                            <li>Complex carbohydrates guide for Indian staples including roti and rice</li>
+                            <li>Healthy fats and vegetables to prioritise, with usage tips</li>
+                            <li>Sample high-protein Indian meal ideas with approximate protein totals</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/918963953181?text=Hi%20Prakhar%21%20I%20found%20your%20website%20and%20would%20like%20to%20get%20the%20Indian%20High-Protein%20Grocery%20List.%20Could%20you%20please%20send%20it%20to%20me%3F%20Thank%20you%21" target="_blank" rel="noopener" class="btn-dl">
+                        <i class="fa-brands fa-whatsapp"></i> Get on WhatsApp
+                    </a>
+                </div>
+
+                <div class="resource-card reveal delay-1">
+                    <div class="rc-top">
+                        <span class="resource-tag"><i class="fa-solid fa-chart-line"></i> Progress Tracker</span>
+                        <i class="fa-solid fa-chart-line resource-icon"></i>
+                        <h3>12-Week Progress and Body Measurement Tracker</h3>
+                    </div>
+                    <div class="rc-body">
+                        <p>Track weight, body measurements, key lifts, energy levels, and weekly habits across a full 12 weeks. Built on the understanding that real progress is more than what the scale says on any given morning.</p>
+                    </div>
+                    <div class="rc-divider"></div>
+                    <div class="rc-meta">
+                        <span><i class="fa-solid fa-file-pdf"></i> PDF, 4 pages</span>
+                        <span><i class="fa-solid fa-calendar-week"></i> 12 weeks</span>
+                        <span><i class="fa-solid fa-person"></i> All levels</span>
+                    </div>
+                    <div class="rc-includes">
+                        <h4>What is inside</h4>
+                        <ul>
+                            <li>12-week log for bodyweight, waist, hips, chest, and weekly notes</li>
+                            <li>Strength tracker for 5 key lifts across all 12 weeks</li>
+                            <li>Weekly habit and energy check-in table</li>
+                            <li>How to take accurate measurements for consistent tracking</li>
+                            <li>How to read your results: what different progress patterns actually mean</li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/918963953181?text=Hi%20Prakhar%21%20I%20found%20your%20website%20and%20would%20like%20to%20get%20the%2012-Week%20Progress%20and%20Body%20Measurement%20Tracker.%20Could%20you%20please%20send%20it%20to%20me%3F%20Thank%20you%21" target="_blank" rel="noopener" class="btn-dl">
+                        <i class="fa-brands fa-whatsapp"></i> Get on WhatsApp
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="cta-box mt-12 reveal">
+                <p class="eyebrow">Next step</p>
+                <h3 class="mb-4">Want a Plan Built Specifically for You?</h3>
+                <p class="text-muted mb-8" style="font-size:.95rem;max-width:500px;margin-left:auto;margin-right:auto;">These templates are built for general use. If you want something designed around your actual body, your schedule, and your specific goals, fill out the contact form.</p>
+                <a href="contact.html" class="btn btn-accent btn-large">Fill Out the Contact Form</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container reveal">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo footer-logo">PRAKHAR VASKALE FITNESS</div>
+                    <p class="footer-tagline">ACE Certified Personal Trainer and Sports Nutrition Specialist. Evidence-based online coaching across India.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="story.html">My Story</a>
+                    <a href="programs.html">Programs</a>
+                    <a href="transformations.html">Results</a>
+                    <a href="resources.html">Resources</a>
+                </div>
+                <div class="footer-col">
+                    <h4>More</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="certifications.html">Certifications</a>
+                    <a href="collaborations.html">Collaborate</a>
+                    <a href="calculator.html">BMI Calculator</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="mailto:prakharvaskalefit@gmail.com">prakharvaskalefit@gmail.com</a>
+                    <a href="https://wa.me/918963953181" target="_blank" rel="noopener">+91 89639 53181 (WhatsApp)</a>
+                    <a href="contact.html">Get in Touch</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Prakhar Vaskale. All rights reserved.</span>
+                <span>Indore, Madhya Pradesh, India</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Intersection Observer for Smooth Agency-Style Reveals
+        var observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        var observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // 2. Custom Magnetic Cursor Logic (Desktop Only)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            var cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
+            });
+
+            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
+                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
+                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
+            });
+        }
+
+        // 3. Navigation Scroll Behavior
+        var nav = document.querySelector('.navbar');
+        var lastY = 0, ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > lastY && y > 90) { nav.classList.add('nav-up'); }
+                    else { nav.classList.remove('nav-up'); }
+                    nav.classList.toggle('nav-scrolled', y > 12);
+                    lastY = y; ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // 4. Mobile Hamburger Toggle
+        var t = document.getElementById('navToggle');
+        var l = document.getElementById('navLinks');
+        
+        if (t && l) {
+            t.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = l.classList.contains('open');
+                if (isOpen) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                } else {
+                    l.classList.add('open');
+                    t.classList.add('open');
+                    t.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            l.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (l.classList.contains('open') && !t.contains(e.target) && !l.contains(e.target)) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
