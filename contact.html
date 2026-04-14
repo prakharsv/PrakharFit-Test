@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Prakhar Vaskale Fitness</title>
+    <meta name="description" content="Get in touch with Prakhar Vaskale - ACE Certified Personal Trainer. Fill out the form and receive a response within 24 hours.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">PRAKHAR VASKALE FITNESS</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="story.html">My Story</a>
+                <a href="programs.html">Programs</a>
+                <a href="transformations.html">Results</a>
+                <a href="resources.html">Resources</a>
+                <a href="faq.html">FAQ</a>
+                <a href="collaborations.html">Collaborate</a>
+                <a href="contact.html" class="btn btn-accent active">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section dark-section" style="min-height:80vh;margin-top:var(--nav-h);">
+        <div class="container">
+            <div class="contact-grid">
+
+                <div class="reveal">
+                    <p class="eyebrow" style="justify-content:flex-start;">Get started</p>
+                    <h1 class="section-title mb-6">Let's Figure Out Your Starting Point.</h1>
+                    <p class="text-muted mb-8 text-lg">The form takes 2 minutes. I do the rest. Tell me where you are right now and what you are working towards, and I will get back to you with a clear next step.</p>
+
+                    <h3 class="mb-6" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);">What Happens After You Submit</h3>
+                    <div class="process-steps mb-10">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text"><strong>You fill out the form</strong><p>Takes about 2 minutes. Tell me your goal, your schedule, and any questions you have.</p></div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text"><strong>I review your details</strong><p>I read every submission personally. You will hear from me within 24 hours, usually sooner.</p></div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text"><strong>We talk through next steps</strong><p>I will reach out via email or WhatsApp to discuss your goals with no obligation to commit.</p></div>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-4" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);">Or Reach Me Directly</h3>
+                    <div class="contact-direct">
+                        <a id="email-contact-link" href="mailto:prakharvaskalefit@gmail.com" class="contact-btn contact-btn-email">
+                            <i class="fa-solid fa-envelope" style="color:var(--accent);"></i>
+                            prakharvaskalefit@gmail.com
+                        </a>
+                        <a id="whatsapp-contact-link"
+                           href="https://wa.me/918963953181?text=Hi%20Prakhar%2C%20I%20came%20across%20your%20website%20and%20wanted%20to%20get%20in%20touch%20about%20your%20coaching%20programs."
+                           target="_blank" rel="noopener"
+                           class="contact-btn contact-btn-whatsapp">
+                            <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i>
+                            +91 89639 53181 (WhatsApp)
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper reveal delay-1">
+                    <div id="fs-success-msg" style="display:none;margin-bottom:1rem;padding:1rem;text-align:center;border:1px solid var(--accent);border-radius:6px;background:rgba(204,255,0,0.05);">
+                        <h3 class="text-accent mb-2">Form Received</h3>
+                        <p style="font-size:0.9rem;">I have read your details and will get back to you within 24 hours.</p>
+                    </div>
+                    <div id="fs-error-msg" style="display:none;margin-bottom:1rem;padding:1rem;text-align:center;border:1px solid #ff4444;border-radius:6px;color:#ff6b6b;font-size:0.9rem;">
+                        Something went wrong. Please check the fields and try again.
+                    </div>
+
+                    <form id="contact-form" class="custom-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="tier">Which program interests you?</label>
+                            <select id="tier" name="tier">
+                                <option value="none">I have a general question first</option>
+                                <option value="essentials">The Essentials Plan (self-guided)</option>
+                                <option value="transformation">The Complete Transformation (1-on-1)</option>
+                                <option value="unsure">Not sure yet - help me decide</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal">What is your primary goal?</label>
+                            <select id="goal" name="goal">
+                                <option value="fat_loss">Lose fat and get leaner</option>
+                                <option value="muscle_gain">Build muscle and get stronger</option>
+                                <option value="endurance">Improve energy and general health</option>
+                                <option value="other">Something else</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Tell me about your situation</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Where are you starting from? What has stopped you before? What does your schedule look like? Anything helps."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="btn btn-accent btn-large w-full">Send My Details</button>
+                        <p class="text-center text-muted mt-4" style="font-size:0.8rem;">I will get back to you within 24 hours. No spam, no sales pressure.</p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="divider-label reveal"><span>Or, if you prefer to book a time directly</span></div>
+
+            <div class="text-center mb-8 reveal">
+                <h2 class="section-title mb-4">Book a Free 30-Minute Call.</h2>
+                <p class="text-muted max-w-2xl mx-auto mb-8">Skip the form and speak directly. Pick a time below and we will go through your goals and starting point together. No commitment required.</p>
+                <div class="calendly-wrapper">
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/prakharvaskalefit/30min?hide_gdpr_banner=1&background_color=080808&text_color=eeeeee&primary_color=ccff00" style="min-width:320px;height:700px;"></div>
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container reveal">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo footer-logo">PRAKHAR VASKALE FITNESS</div>
+                    <p class="footer-tagline">ACE Certified Personal Trainer and Sports Nutrition Specialist. Evidence-based online coaching across India.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="story.html">My Story</a>
+                    <a href="programs.html">Programs</a>
+                    <a href="transformations.html">Results</a>
+                    <a href="resources.html">Resources</a>
+                </div>
+                <div class="footer-col">
+                    <h4>More</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="certifications.html">Certifications</a>
+                    <a href="collaborations.html">Collaborate</a>
+                    <a href="calculator.html">BMI Calculator</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="mailto:prakharvaskalefit@gmail.com">prakharvaskalefit@gmail.com</a>
+                    <a href="https://wa.me/918963953181" target="_blank" rel="noopener">+91 89639 53181 (WhatsApp)</a>
+                    <a href="contact.html">Get in Touch</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Prakhar Vaskale. All rights reserved.</span>
+                <span>Indore, Madhya Pradesh, India</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    /* Formspree AJAX */
+    (function(){
+        var tL={none:'General question',essentials:'The Essentials Plan',transformation:'The Complete Transformation',unsure:'Not sure yet'};
+        var gL={fat_loss:'Lose fat',muscle_gain:'Build muscle',endurance:'Improve energy and health',other:'Something else'};
+
+        var form=document.getElementById('contact-form');
+        var btn=document.getElementById('submit-btn');
+        var succ=document.getElementById('fs-success-msg');
+        var err=document.getElementById('fs-error-msg');
+
+        if(form) {
+            form.addEventListener('submit',function(e){
+                e.preventDefault();
+                succ.style.display='none'; err.style.display='none';
+                btn.disabled=true; btn.textContent='Sending...';
+                fetch('https://formspree.io/f/xreovozz',{
+                    method:'POST',
+                    headers:{'Accept':'application/json'},
+                    body:new FormData(form)
+                }).then(function(r){
+                    if(r.ok){succ.style.display='block';form.reset();btn.textContent='Sent!';}
+                    else{throw new Error();}
+                }).catch(function(){
+                    err.style.display='block';
+                    btn.disabled=false;btn.textContent='Send My Details';
+                });
+            });
+        }
+
+        /* Dynamic email/WA links that pre-fill with form data */
+        function upd(){
+            var n=(document.getElementById('name')||{}).value||'';
+            var e=(document.getElementById('email')||{}).value||'';
+            var t=tL[(document.getElementById('tier')||{}).value]||'';
+            var g=gL[(document.getElementById('goal')||{}).value]||'';
+            var m=(document.getElementById('message')||{}).value||'';
+            var body='Hi Prakhar,\n\nI came across your website and wanted to reach out.\n\nName: '+(n||'(not filled)')+'\nEmail: '+(e||'(not filled)')+'\nProgram: '+(t||'(not selected)')+'\nGoal: '+(g||'(not selected)')+'\nSituation: '+(m||'(not filled)')+'\n\nLooking forward to hearing from you.';
+            var el=document.getElementById('email-contact-link');
+            if(el)el.href='mailto:prakharvaskalefit@gmail.com?subject='+encodeURIComponent('Coaching Enquiry')+'&body='+encodeURIComponent(body);
+            var wl=document.getElementById('whatsapp-contact-link');
+            if(wl)wl.href='https://wa.me/918963953181?text='+encodeURIComponent(body);
+        }
+
+        document.addEventListener('DOMContentLoaded',function(){
+            ['name','email','tier','goal','message'].forEach(function(id){
+                var el=document.getElementById(id);
+                if(el){el.addEventListener('input',upd);el.addEventListener('change',upd);}
+            });
+            upd();
+            var plan=new URLSearchParams(window.location.search).get('plan');
+            if(plan){var s=document.getElementById('tier');if(s){s.value=plan;upd();}}
+        });
+    })();
+
+    /* Nav Master Script + Animations */
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Intersection Observer for Smooth Agency-Style Reveals
+        var observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        var observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // 2. Custom Magnetic Cursor Logic (Desktop Only)
+        if (window.matchMedia("(pointer: fine)").matches) {
+            var cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
+            });
+
+            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
+                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
+                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
+            });
+        }
+
+        // 3. Navigation Scroll Behavior
+        var nav = document.querySelector('.navbar');
+        var lastY = 0, ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > lastY && y > 90) { nav.classList.add('nav-up'); }
+                    else { nav.classList.remove('nav-up'); }
+                    nav.classList.toggle('nav-scrolled', y > 12);
+                    lastY = y; ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // 4. Mobile Hamburger Toggle
+        var t = document.getElementById('navToggle');
+        var l = document.getElementById('navLinks');
+        
+        if (t && l) {
+            t.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = l.classList.contains('open');
+                if (isOpen) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                } else {
+                    l.classList.add('open');
+                    t.classList.add('open');
+                    t.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            l.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (l.classList.contains('open') && !t.contains(e.target) && !l.contains(e.target)) {
+                    l.classList.remove('open');
+                    t.classList.remove('open');
+                    t.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
