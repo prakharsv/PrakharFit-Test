@@ -263,7 +263,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Intersection Observer for Smooth Agency-Style Reveals
+        // 1. Intersection Observer for Smooth Reveals
         var observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         var observer = new IntersectionObserver(function(entries, observer) {
             entries.forEach(function(entry) {
@@ -278,23 +278,7 @@
             observer.observe(el);
         });
 
-        // 2. Custom Magnetic Cursor Logic (Desktop Only)
-        if (window.matchMedia("(pointer: fine)").matches) {
-            var cursor = document.createElement('div');
-            cursor.classList.add('custom-cursor');
-            document.body.appendChild(cursor);
-
-            document.addEventListener('mousemove', function(e) {
-                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
-            });
-
-            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
-                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
-                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
-            });
-        }
-
-        // 3. Navigation Scroll Behavior
+        // 2. Navigation Scroll Behavior
         var nav = document.querySelector('.navbar');
         var lastY = 0, ticking = false;
         
@@ -311,7 +295,7 @@
             }
         }, { passive: true });
 
-        // 4. Mobile Hamburger Toggle
+        // 3. Mobile Hamburger Toggle
         var t = document.getElementById('navToggle');
         var l = document.getElementById('navLinks');
         
