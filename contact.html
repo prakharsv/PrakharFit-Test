@@ -120,13 +120,14 @@
 
             <div class="divider-label reveal"><span>Or, if you prefer to book a time directly</span></div>
 
-            <div class="text-center mb-8 reveal">
+            <div class="text-center mb-8">
                 <h2 class="section-title mb-4">Book a Free 30-Minute Call.</h2>
                 <p class="text-muted max-w-2xl mx-auto mb-8">Skip the form and speak directly. Pick a time below and we will go through your goals and starting point together. No commitment required.</p>
+                
                 <div class="calendly-wrapper">
                     <div class="calendly-inline-widget" data-url="https://calendly.com/prakharvaskalefit/30min?hide_gdpr_banner=1&background_color=080808&text_color=eeeeee&primary_color=ccff00" style="min-width:320px;height:700px;"></div>
                     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-                </div>
+                    </div>
             </div>
         </div>
     </main>
@@ -221,9 +222,9 @@
         });
     })();
 
-    /* Nav Master Script + Animations */
+    /* Nav Master Script + Smooth Scroll Reveals (CURSOR LOGIC REMOVED) */
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Intersection Observer for Smooth Agency-Style Reveals
+        // 1. Intersection Observer for Smooth Reveals
         var observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         var observer = new IntersectionObserver(function(entries, observer) {
             entries.forEach(function(entry) {
@@ -238,23 +239,7 @@
             observer.observe(el);
         });
 
-        // 2. Custom Magnetic Cursor Logic (Desktop Only)
-        if (window.matchMedia("(pointer: fine)").matches) {
-            var cursor = document.createElement('div');
-            cursor.classList.add('custom-cursor');
-            document.body.appendChild(cursor);
-
-            document.addEventListener('mousemove', function(e) {
-                cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate3d(-50%, -50%, 0)`;
-            });
-
-            document.querySelectorAll('a, button, input, select, textarea, .btn').forEach(function(el) {
-                el.addEventListener('mouseenter', function() { cursor.classList.add('hover'); });
-                el.addEventListener('mouseleave', function() { cursor.classList.remove('hover'); });
-            });
-        }
-
-        // 3. Navigation Scroll Behavior
+        // 2. Navigation Scroll Behavior
         var nav = document.querySelector('.navbar');
         var lastY = 0, ticking = false;
         
@@ -271,7 +256,7 @@
             }
         }, { passive: true });
 
-        // 4. Mobile Hamburger Toggle
+        // 3. Mobile Hamburger Toggle
         var t = document.getElementById('navToggle');
         var l = document.getElementById('navLinks');
         
@@ -304,6 +289,25 @@
                     t.classList.remove('open');
                     t.setAttribute('aria-expanded', 'false');
                 }
+            });
+        }
+
+        // 4. FAQ Dropdown Toggle (Only fires on pages with FAQs)
+        var faqBtns = document.querySelectorAll('.faq-question-btn');
+        if (faqBtns.length > 0) {
+            faqBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var expanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !expanded);
+                    var answer = this.nextElementSibling;
+                    if (answer && answer.classList.contains('faq-answer')) {
+                        if (!expanded) {
+                            answer.classList.add('open');
+                        } else {
+                            answer.classList.remove('open');
+                        }
+                    }
+                });
             });
         }
     });
